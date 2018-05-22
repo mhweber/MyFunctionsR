@@ -14,15 +14,14 @@
 #' polys <- readOGR('.','TestPolys')
 #' proj4string(points) == proj4string(polys)
 #' polys = spTransform(polys, CRS(proj4string(points)))
+#' points@data <- nearby(points, polys, 'FieldName')
+#' head(points@data)
 
-points@data <- nearby(points, polys, 'FieldName')
-head(points@data)
- 
 nearby = function(points, polys, column){
-  m = gDistance(points, polys, byid=TRUE) 
-  row = apply(m, 2, function(x) which(x==min(x))) 
+  m = gDistance(points, polys, byid=TRUE)
+  row = apply(m, 2, function(x) which(x==min(x)))
   row = sapply(row, "[",1)
-  labels = unlist(polys@data[row,][[column]]) 
+  labels = unlist(polys@data[row,][[column]])
   points$missing <- labels
   # head(missing)
   return(points@data)
