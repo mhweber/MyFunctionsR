@@ -19,8 +19,10 @@
 #'   a[i,c(points_name)] <- closest[[i]][,c(polys_name)]
 #'}
 
-closest <- list()
-for(i in seq_len(nrow(a))){
-  closest[[i]] <- b[which.min(
-    st_distance(b, a[i,])),]
+closest =function(a,b) {
+  out <- list()
+  for(i in seq_len(nrow(a))){
+    l[[i]] <- b[which.min(st_distance(b, a[i,])),]
+  }
+  return(out)
 }
